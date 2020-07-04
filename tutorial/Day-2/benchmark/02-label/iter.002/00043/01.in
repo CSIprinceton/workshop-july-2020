@@ -1,0 +1,39 @@
+&control
+  calculation='scf'
+  prefix='ethane'
+  pseudo_dir='../../pseudo-potentials'
+  outdir='./out'
+  restart_mode='from_scratch'
+  nstep=20000
+  max_seconds=14000
+  tprnfor=.true.
+  disk_io='none'
+/
+&system
+  ibrav=1
+  a=10
+  nat=8
+  ntyp=2,
+  ecutwfc=50
+/
+&electrons
+  electron_maxstep = 100
+  mixing_beta = 0.2
+  conv_thr = 1.D-6
+/
+&ions
+/
+&cell
+/
+ATOMIC_SPECIES
+C   1.0  C_ONCV_PBE-1.0.upf 
+H   1.0  H_ONCV_PBE-1.0.upf 
+ATOMIC_POSITIONS {angstrom}
+C 17.47832 21.85512 19.91108
+C 18.46316 22.95676 20.09752
+H 17.39444 21.45852 18.83592
+H 16.41692 22.03552 20.20728
+H 17.8674 21.0336 20.53108
+H 18.04848 23.89632 19.69316
+H 19.37036 22.94396 19.41904
+H 18.73104 23.07688 21.21104
