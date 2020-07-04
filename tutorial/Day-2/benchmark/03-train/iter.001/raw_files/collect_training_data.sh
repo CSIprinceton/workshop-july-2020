@@ -1,12 +1,14 @@
 #!/bin/bash
 
+iter=$1
+
 #Collect old data
 rm *.raw 2> /dev/null
-cp ../../iter.000/raw_files/*.raw .
+cp ../../iter.00$((iter-1))/raw_files/*.raw .
 #Collect new data
 for i in box.raw coord.raw energy.raw force.raw
 do 
-  cat ../../../03-label/iter.001/analysis/$i >> $i
+  cat ../../../02-label/iter.00${iter}/analysis/$i >> $i
 done
 
 cat << EOF > import.py

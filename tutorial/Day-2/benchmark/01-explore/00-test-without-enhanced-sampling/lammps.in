@@ -1,0 +1,33 @@
+#lammps input to simulate amorphous TiO2 using the MA potential
+
+#Initialization
+units metal
+dimension 3
+atom_style atomic #Atomic system with charges
+
+read_data conf.lmp
+
+#Interatomic potentials - DeepMD 
+pair_style	deepmd ./graph1.pb ./graph2.pb ./graph3.pb 
+#pair_style	deepmd graph1.pb 
+pair_coeff
+
+
+#MD parameters
+timestep 0.0005 #ps 
+velocity all create 300.0 1815191 mom yes rot yes dist gaussian 
+
+#Run MD - equil at 330K
+run_style verlet #Velocity verlet
+fix 1 all nvt temp 300 300 0.1 #NH thermostat - 330K with 100 fs frequency
+fix 2 all momentum 1 linear 0 0 0 #Remove total linear momentum of the system at each step
+fix 3 all recenter INIT INIT INIT
+fix 4 all plumed plumedfile plumed.in outfile plumed.out
+thermo_style custom step temp pe etotal press #Setting printing
+thermo 100 #Ouputing thermodynamic properties
+dump 1 all atom 100 pos.lammpstrj 
+#dump 2 all custom 100 vel.xyz id type vx vy vz
+timer timeout 1:00:00 every 100
+run 20000000 #10 ns
+
+write_restart lammps.restart
