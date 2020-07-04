@@ -1,0 +1,71 @@
+PLUMED: PLUMED is starting
+PLUMED: Version: 2.5.2 (git: Unknown) compiled on Mar 17 2020 at 15:06:16
+PLUMED: Please cite this paper when using PLUMED [1]
+PLUMED: For further information see the PLUMED web page at http://www.plumed.org
+PLUMED: Root: /home/mandrade/lammps/lib/plumed/plumed2/lib/plumed
+PLUMED: For installed feature, see /home/mandrade/lammps/lib/plumed/plumed2/lib/plumed/src/config/config.txt
+PLUMED: Molecular dynamics engine: LAMMPS
+PLUMED: Precision of reals: 8
+PLUMED: Running over 1 node
+PLUMED: Number of threads: 1
+PLUMED: Cache line size: 512
+PLUMED: Number of atoms: 8
+PLUMED: File suffix: 
+PLUMED: FILE: plumed.in
+PLUMED: Action UNITS
+PLUMED:   with label @0
+PLUMED:   length: A = 0.1 nm
+PLUMED:   energy: kj/mol
+PLUMED:   time: 0.0005 ps
+PLUMED:   charge: e
+PLUMED:   mass: amu
+PLUMED:   using physical units
+PLUMED:   inside PLUMED, Boltzmann constant is 0.00831446
+PLUMED: Action ENERGY
+PLUMED:   with label ene
+PLUMED:   Bibliography [2][3]
+PLUMED: Action TORSION
+PLUMED:   with label phi
+PLUMED:   between atoms 5 1 2 8
+PLUMED:   using periodic boundary conditions
+PLUMED: Action METAD
+PLUMED:   with label metad
+PLUMED:   with arguments phi
+PLUMED:   added component to this action:  metad.bias 
+PLUMED:   Gaussian width  0.100000  Gaussian height 1.000000
+PLUMED:   Gaussian deposition pace 50
+PLUMED:   Gaussian file HILLS
+PLUMED:   Well-Tempered Bias Factor 20.000000
+PLUMED:   Hills relaxation time (tau) 2369.621698
+PLUMED:   KbT 2.494339
+PLUMED:   added component to this action:  metad.work 
+PLUMED:   Bibliography [4][5]
+PLUMED: Action PRINT
+PLUMED:   with label @4
+PLUMED:   with stride 1
+PLUMED:   with arguments phi metad.bias metad.work ene
+PLUMED:   on file COLVAR
+PLUMED:   with format  %f
+PLUMED: Action FLUSH
+PLUMED:   with label @5
+PLUMED:   with stride 1
+PLUMED: END FILE: plumed.in
+PLUMED: Timestep: 1.000000
+PLUMED: KbT has not been set by the MD engine
+PLUMED: It should be set by hand where needed
+PLUMED: Relevant bibliography:
+PLUMED:   [1] Tribello, Bonomi, Branduardi, Camilloni, and Bussi, Comput. Phys. Commun. 185, 604 (2014)
+PLUMED:   [2] Bartels and Karplus, J. Phys. Chem. B 102, 865 (1998)
+PLUMED:   [3] Bonomi and Parrinello, J. Comp. Chem. 30, 1615 (2009)
+PLUMED:   [4] Laio and Parrinello, PNAS 99, 12562 (2002)
+PLUMED:   [5] Barducci, Bussi, and Parrinello, Phys. Rev. Lett. 100, 020603 (2008)
+PLUMED: Please read and cite where appropriate!
+PLUMED: Finished setup
+PLUMED:                                               Cycles        Total      Average      Minumum      Maximum
+PLUMED:                                                    1   239.467917   239.467917   239.467917   239.467917
+PLUMED: 1 Prepare dependencies                        498401     0.796032     0.000002     0.000001     0.000010
+PLUMED: 2 Sharing data                                498401     0.711995     0.000001     0.000001     0.000029
+PLUMED: 3 Waiting for data                            498401     0.476558     0.000001     0.000001     0.000032
+PLUMED: 4 Calculating (forward loop)                  498401    72.703479     0.000146     0.000015     0.002140
+PLUMED: 5 Applying (backward loop)                    498401     2.711512     0.000005     0.000004     0.000067
+PLUMED: 6 Update                                      498401   142.427235     0.000286     0.000032     0.082570
