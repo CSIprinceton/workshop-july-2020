@@ -243,6 +243,7 @@ By `head model_devi.out`, you will see:
 Now let's go back and enter to `fp` folder. 
 ```bash
 cd ../../iter.000000/02.fp
+ls
 ```
 You will see:
 
