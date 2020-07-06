@@ -12,7 +12,7 @@
 	    "_comment":		" that's all"
 	},
 	"fitting_net" : {
-	    "neuron":		[40, 40, 40],
+	    "neuron":		[20, 20, 20],
 	    "resnet_dt":	true,
 	    "seed":		53452451,
 	    "_comment":		" that's all"

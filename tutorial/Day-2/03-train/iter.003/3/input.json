@@ -12,7 +12,7 @@
 	    "_comment":		" that's all"
 	},
 	"fitting_net" : {
-	    "neuron":		[40, 40, 40],
+	    "neuron":		[20, 20, 20],
 	    "resnet_dt":	true,
 	    "seed":		53452451,
 	    "_comment":		" that's all"
@@ -44,7 +44,7 @@
             "../raw_files"
         ],
 	"set_prefix":	"set",    
-	"stop_batch":	250000,
+	"stop_batch":	400000,
         "batch_size":   [10],
 	"seed":		3543423421,
 	"_comment": " display and restart",
