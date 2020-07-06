@@ -3,7 +3,7 @@ Instruction for day 2 of the tutorial
 #### July 14 @ Princeton CSI center
 ##### Tutors: Marcos Calegari Andrade (Princeton CHEM), Yixiao Chen (Princeton PACM), Pablo Piaggi (Princeton CHEM), Linfeng Zhang (Princeton PACM)
 
-#Pre-requisites
+# Pre-requisites
 
 In order to run this tutorial, please make sure you have the following codes compiled:
 
