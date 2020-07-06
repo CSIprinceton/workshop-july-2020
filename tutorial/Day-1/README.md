@@ -2,12 +2,12 @@
 Instruction for day 1 of the tutorial
 ===
 #### July 13 @ Princeton CSI center
-##### Tutors: Yixiao Chen (Princeton PACM), Marcos F. Calegari (Princeton CHEM), Pablo Piaggi (Princeton CHEM), Linfeng Zhang (Princeton PACM)
+##### Tutors: Yixiao Chen (Princeton PACM), Marcos Calegari Andrade (Princeton CHEM), Pablo Piaggi (Princeton CHEM), Linfeng Zhang (Princeton PACM)
 
 # Aim and plan
 The aim of this 2-hour hands-on session is to introduce to you how to use DP-GEN, at the basic level.
 
-We will use the example of a single methane molecule and go through the whole DP-GEN process that 1) uses DeePMD-kit for training; 2) uses LAMMPS to explore the configuration space; and 3) uses QE to do ab initio calculations and prepare the training data. The outout will be a uniformly accurate Deep Potential model for the methane molecule.
+We will use the example of a single methane molecule and go through the whole DP-GEN process that 1) uses DeePMD-kit for training; 2) uses LAMMPS to explore the configuration space; and 3) uses QE to do ab initio calculations and prepare the training data. The output will be a uniformly accurate Deep Potential model for the methane molecule.
 
 # Learning outcomes
 Once this tutorial is completed, students will be able to:

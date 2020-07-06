@@ -1,4 +1,9 @@
-# Instruction for day 2 of the tutorial
+Instruction for day 2 of the tutorial
+===
+#### July 14 @ Princeton CSI center
+##### Tutors: Marcos Calegari Andrade (Princeton CHEM), Yixiao Chen (Princeton PACM), Pablo Piaggi (Princeton CHEM), Linfeng Zhang (Princeton PACM)
+
+#Pre-requisites
 
 In order to run this tutorial, please make sure you have the following codes compiled:
 
@@ -7,19 +12,18 @@ In order to run this tutorial, please make sure you have the following codes com
 3. PWscf code of Quantum-ESPRESSO.
 
 If you are running this code on the GoldVM machine, these codes are already properly
-compiled.
+compiled. Before running the tutorial, please write the path to pw.x and lammps executable at
+`path_to_codes`. No need to change the paths if you're running the tutorial on GoldVM.
 
-Before running the tutorial, please write the path to pw.x and lammps executable at
-`path_to_codes`. No need to change the paths if you're running the tutorial 
-on GoldVM.
+# Quick start
 
-You can run this tutorial with:
+You can run one DP training iteration with:
 
-```./run_one_dp_iteration.sh &> log &```
+`./run_one_dp_iteration.sh &> log &`
 
 We describe below what quatities you should look during the active learning cycle.
 
-## Introduction
+# Introduction and Motivation
 
 As shown in the first hands-on tutorial, DP-Gen builds a robust training data for 
 deep neural network potentials based on an iterative scheme. This scheme consists of:
@@ -51,7 +55,7 @@ instruction on what quantities we should look during the training.
 
 We provide all the outputs of 3 active learning iterations at `./benchmark`.
 
-## Exploration
+# Exploration
 
 This is the first step of active learning. We use Lammps interfaced with Plumed to perform
 enhanced sampling simulations using the DNN potential. At this stage, we should mainly 
@@ -92,7 +96,7 @@ forces will be selected to retrain.
 If you're interested, you can also compute the free energy surface for this system at 
 the end of each exploration step. Please read `01-explore/README` for more details.
 
-## Labeling
+# Labeling
 
 Now that we selected a set of atomic configurations from the exploration step, we should 
 label these configuration. Labeling consists of evaluation of atomic forces and energy 
@@ -101,7 +105,7 @@ code of Quantum-ESPRESSO, to evaluate first-principles energy and forces. At the
 of this step, raw files will be extracted from PW outputs and later appended to the 
 existing DP training data.
 
-## Training
+# Training
 
 This is the last step of one active learning iteration. We will use the old and the new 
 training data collected from labeling to train an improved DNN potential. 
