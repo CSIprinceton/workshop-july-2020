@@ -5,7 +5,7 @@ f=np.genfromtxt('model_devi.out')
 f=f[::5]
 f=f.transpose()
 
-filter=np.logical_and(f[4]>0.022,f[4]<1.0)
+filter=np.logical_and(f[4]>0.023,f[4]<1.0)
 
 for i in f[0][filter]:
   print(int(i))

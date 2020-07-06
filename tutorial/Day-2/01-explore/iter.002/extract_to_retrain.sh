@@ -2,7 +2,7 @@ cat << EOF > large_std.py
 import numpy as np
 
 f=np.genfromtxt('model_devi.out')
-f=f[::5]
+f=f[::2]
 f=f.transpose()
 
 filter=np.logical_and(f[4]>0.025,f[4]<1.0)
