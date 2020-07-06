@@ -10,25 +10,25 @@ fi
 
 #### Exploration ####
 
-cd 01-explore/iter.00${iter}
-#Link DP graphs (deep potentials)
-ln -s $origin/03-train/iter.00$((iter-1))/?/graph* . 
-#Run Lammps
-echo "Running Lammps. It will take 20 minutes (max.) to finish"
-echo "The simulation is running at: $origin/01-explore/iter.00${iter}"
-$lammps < lammps.in &> lammps.out
-if grep -q 'Total wall time' lammps.out
-  then
-  echo "Done with Lammps"
-else
-  echo "Lammps simulation crashed"
-  echo "STOP"
-  exit
-fi
-./extract_to_retrain.sh
-n=`wc -l coord.raw | awk '{print $1}'`
-echo "We will label $n configurations"
-cd $origin
+#cd 01-explore/iter.00${iter}
+##Link DP graphs (deep potentials)
+#ln -s $origin/03-train/iter.00$((iter-1))/?/graph* . 
+##Run Lammps
+#echo "Running Lammps. It will take 20 minutes (max.) to finish"
+#echo "The simulation is running at: $origin/01-explore/iter.00${iter}"
+#$lammps < lammps.in &> lammps.out
+#if grep -q 'Total wall time' lammps.out
+#  then
+#  echo "Done with Lammps"
+#else
+#  echo "Lammps simulation crashed"
+#  echo "STOP"
+#  exit
+#fi
+#./extract_to_retrain.sh
+#n=`wc -l coord.raw | awk '{print $1}'`
+#echo "We will label $n configurations"
+#cd $origin
 
 #### Labeling ####
 

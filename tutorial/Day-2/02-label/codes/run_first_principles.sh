@@ -1,7 +1,7 @@
 #Compute DFT energy and forces for all atomic configuration in coord.raw
 
 ### Load user INPUT ###
-source ../../../path_to_codes
+source ../../path_to_codes
 
 if ! [ -e coord.raw ]; then
   echo "Could not find coord.raw"

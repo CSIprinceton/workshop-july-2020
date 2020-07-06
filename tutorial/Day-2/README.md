@@ -55,26 +55,42 @@ We provide all the outputs of 3 active learning iterations at `./benchmark`.
 
 This is the first step of active learning. We use Lammps interfaced with Plumed to perform
 enhanced sampling simulations using the DNN potential. At this stage, we should mainly 
-focus on two files: COLVAR and model_devi.out. COLVAR contains outputs from Plumed. 
+focus on two files: `COLVAR` and `model_devi.out`. `COLVAR` contains outputs from Plumed. 
 In this file, we can see the time evolution of our collective variable (H-C-C-H dihedral).
 This collective variable goes from -Pi to +Pi, and our enhanced sampling can explore 
 the full rotation of the H-C-C-H dihedral. This is not the case of conventional MD.
 You can find the time evolution of the H-C-C-H dihedral on a ~200 ps simulation 
-without enhanced sampling at "benchmark/01-explore/00-test-without-enhanced-sampling/COLVAR".
+without enhanced sampling at `benchmark/01-explore/00-test-without-enhanced-sampling/COLVAR`.
 
-model_devi.out contains the deviation of energy and forces predicted from 3 different 
+To plot the time evolution of the H-C-C-H dihedral (iteration 1), do
+
+```
+cd 01-explore/iter.001/
+gnuplot ../codes/plot_colvar.gnu
+cd ../../
+```
+
+`model_devi.out` contains the deviation of energy and forces predicted from 3 different 
 DNN potentials. As in the first-day tutorial, these potentials are trained with the
 same training data. They differ only by the different random initialization of the 
 DNN parameters. We here use the deviation as a fast error estimatior of energy and
 forces. As the iterations go, you should compare how the model deviation change as 
 a function of the number of completed iterations.
 
+To plot the time evolution of the maximum model deviation in forces (iteration 1), do
+
+```
+cd 01-explore/iter.001/
+gnuplot ../codes/plot_model_devi.gnu
+cd ../../
+```
+
 At the end of the exploration, we will use the model deviation to select new atomic
 configurations to retrain. Only configurations with high maximum deviation in atomic 
 forces will be selected to retrain.  
  
 If you're interested, you can also compute the free energy surface for this system at 
-the end of each exploration step. Please read "01-explore/README" for more details.
+the end of each exploration step. Please read `01-explore/README` for more details.
 
 ## Labeling
 
@@ -95,7 +111,15 @@ the local-frame descriptors, instead of the smooth descriptors, for computationa
 efficiency. We recommend the use of the smooth descriptors for condensed 
 phase systems.
 
-During training, you should look at "lcurve.out". This file contains the fitting 
+During training, you should look at `lcurve.out`. This file contains the fitting 
 error of the DNN as a function of the number of training steps. Use gnuplot to 
 plot the training and testing error forces for one the potentials in folders 
-1, 2 or 3 in "03-train/iter.00?".  
+1, 2 or 3 in `03-train/iter.00?`. For the first iteration, you could plot it
+with:
+
+```
+cd 03-train/iter.001/1
+gnuplot ../codes/plot_lcurve.gnu
+cd ../../../
+```
+

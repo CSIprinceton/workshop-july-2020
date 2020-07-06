@@ -1,3 +1,5 @@
+source ../../path_to_codes
+
 for i in ?
 do
   cd $i
