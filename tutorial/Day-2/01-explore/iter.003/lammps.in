@@ -14,7 +14,7 @@ pair_coeff
 timestep 0.0005 #ps 
 velocity all create 300.0 1815191 mom yes rot yes dist gaussian 
 
-#Run MD - equil at 330K
+#Run MD - equil at 300K
 run_style verlet #Velocity verlet
 fix 1 all nvt temp 300 300 0.1 #NH thermostat - 300K with 100 fs frequency
 fix 2 all momentum 1 linear 0 0 0 #Remove total linear momentum of the system at each step
@@ -25,6 +25,6 @@ thermo 100 #Ouputing thermodynamic properties
 dump 1 all atom 100 pos.lammpstrj 
 #dump 2 all custom 100 vel.xyz id type vx vy vz
 timer timeout 0:20:00 every 100
-run 20000000 #10 ns
+run 500000 #250 ps
 
 write_restart lammps.restart

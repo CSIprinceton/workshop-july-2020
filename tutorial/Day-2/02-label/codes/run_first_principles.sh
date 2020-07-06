@@ -19,7 +19,7 @@ python convert_raw_to_pw_input.py
 n=`wc -l coord.raw | awk '{print $1}'`
 for i in `seq -f "%05g" $n`
 do
-  while [ $(jobs -r | grep "pw.x" | wc -l) -ge 6  ]; do sleep 10; done;
+  while [ $(ps S | grep "pw.x" | wc -l) -ge 6  ]; do sleep 10; done;
   
   cd $i
     $PW < 01.in > 01.out &
@@ -31,7 +31,7 @@ wait
 
 #Obtain raw files from PW outputs
 mkdir analysis
-cp ../codes/get_raw_data.sh .
+cp ../codes/get_raw_data.sh ./analysis
 cd analysis
 ./get_raw_data.sh
 cd ..
