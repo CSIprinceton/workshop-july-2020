@@ -1,0 +1,9 @@
+#You should set the path to lammmps and PW codes below (before running the tutorial).
+#If you're logged to GoldVM cluster, there's no need to change the lines below
+lammps=lmp_serial
+PW=pw.x
+#Load the python environment containing DP
+source /opt/tensorflow-venv/bin/activate
+
+#Set the number of CPU cores you want to use 
+nproc=6

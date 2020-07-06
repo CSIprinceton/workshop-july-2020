@@ -1,8 +1,29 @@
 # Instruction for day 2 of the tutorial
 
+In order to run this tutorial, please make sure you have the following codes compiled:
+
+1. DeepMD-kit (with tensorflow version 1.14.0);
+2. Lammps interfaced with DeepMD-kit and Plumed;
+3. PWscf code of Quantum-ESPRESSO.
+
+If you are running this code on the GoldVM machine, these codes are already properly
+compiled.
+
+Before running the tutorial, please write the path to pw.x and lammps executable at
+`path_to_codes`. No need to change the paths if you're running the tutorial 
+on GoldVM.
+
+You can run this tutorial with:
+
+```./run_one_dp_iteration.sh &> log &```
+
+We describe below what quatities you should look during the active learning cycle.
+
+## Introduction
+
 As shown in the first hands-on tutorial, DP-Gen builds a robust training data for 
 deep neural network potentials based on an iterative scheme. This scheme consists of:
-1) exploration, 2) labeling and 3) training.
+(1) exploration, (2) labeling and (3) training.
 
 However, the type of exploration is critical to define the accuracy of the DNN potentials
 over a range of physical events of interest. Transition states, for instance, are rarely 
@@ -19,16 +40,16 @@ Our aim is to perform 3 active-learning iterations in 3 h 30 min. No attempt to 
 a fully converged potential is made. The tutorial should provide a consistent improvement 
 of the DNN potential with the number of iterations.
 
-For the sake of time, we already provide you 3 trained potentials at 03-train/iter.000/?/graph?.pb
+For the sake of time, we already provide you 3 trained potentials at `03-train/iter.000/?/graph?.pb`
 ("?" correspond to integers 1,2 or 3). These potentials were trained from training data 
-consisting of randomly perturbed C2H6 molecules (see 03-train/iter.000/raw_files/README.md
+consisting of randomly perturbed C2H6 molecules (see `03-train/iter.000/raw_files/README.md`
 for more details).
 
-You can easily perform one iteration cycle running "./run_one_dp_iteration.sh" in the current 
+You can easily perform one iteration cycle running `./run_one_dp_iteration.sh &> log &` in the current 
 folder. This script will sweap over the 3 steps of active learning training. Below, we give 
 instruction on what quantities we should look during the training.
 
-We provide all the outputs of 3 active learning iterations at "./benchmark".
+We provide all the outputs of 3 active learning iterations at `./benchmark`.
 
 ## Exploration
 
