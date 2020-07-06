@@ -12,7 +12,7 @@ fi
 
 cd 01-explore/iter.00${iter}
 #Link DP graphs (deep potentials)
-ln -s 03-label/iter.00$((iter-1))/?/graph* . 
+ln -s $origin/03-train/iter.00$((iter-1))/?/graph* . 
 #Run Lammps
 echo "Running Lammps. It will take 20 minutes to finish"
 $lammps < lammps.in > lammps.out
