@@ -12,7 +12,7 @@
 	    "_comment":		" that's all"
 	},
 	"fitting_net" : {
-	    "neuron":		[20, 20, 20],
+	    "neuron":		[40, 40, 40],
 	    "resnet_dt":	true,
 	    "seed":		53452451,
 	    "_comment":		" that's all"
@@ -22,7 +22,7 @@
 
     "learning_rate" :{
 	"type":		"exp",
-	"start_lr":	0.005,
+	"start_lr":	0.001,
 	"decay_steps":	20000,
 	"decay_rate":	0.95,
 	"_comment":	"that's all"
