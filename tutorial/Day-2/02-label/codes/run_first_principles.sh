@@ -7,6 +7,7 @@ PW=pw.x #Path to pw.x executable
 
 if ! [ -e coord.raw ]; then
   echo "Could not find coord.raw"
+  echo "I am in `pwd`"
   echo "STOP"
   exit
 fi
@@ -22,7 +23,7 @@ do
   while [ $(ps S | grep "pw.x" | wc -l) -ge 6  ]; do sleep 10; done;
   
   cd $i
-    $PW < 01.in > 01.out &
+    $PW < 01.in &> 01.out &
   cd ..
 
 done
