@@ -2,7 +2,7 @@
 Instruction for day 1 of the tutorial
 ===
 #### July 13 @ Princeton CSI center
-##### Tutors: Yixiao Chen (Princeton PACM), Marcos Calegari Andrade (Princeton CHEM), Pablo Piaggi (Princeton CHEM), Linfeng Zhang (Princeton PACM)
+##### Tutors: Yixiao Chen (Princeton PACM), Marcos Calegari Andrade (Princeton CHEM), Linfeng Zhang (Princeton PACM)
 
 # Aim and plan
 The aim of this 2-hour hands-on session is to introduce to you how to use DP-GEN, at the basic level.
