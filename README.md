@@ -8,3 +8,7 @@ For now the tutorial is consist of two parts, and be given in two days.
 2. [The second part](./tutorial/Day-2) is an example of using Deep Potential to do enhanced sampling calculation and improve the model at the same time.
 
 You can check corresponding folders for more detailed instructions.
+
+Before starting, please clone this repository using:
+
+`git clone https://github.com/CSIprinceton/workshop-july-2020.git`
