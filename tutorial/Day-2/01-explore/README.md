@@ -1,4 +1,4 @@
-##Free energy surface of ethane dihedral rotation
+## Free energy surface of dihedral rotation in ethane
 
 We use metadynamics to enhance the probability to visit rare events. You can find 
 excellent tutorials about metadynamics at Plumed's documentation page:
