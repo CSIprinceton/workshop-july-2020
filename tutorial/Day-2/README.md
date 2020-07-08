@@ -11,7 +11,7 @@ In order to run this tutorial, please make sure you have the following codes com
 2. Lammps interfaced with DeepMD-kit and Plumed;
 3. PWscf code of Quantum-ESPRESSO.
 
-If you are running this code on the GoldVM machine, these codes are already properly
+If you are running this tutorial on the GoldVM machine, these codes are already properly
 compiled. Before running the tutorial, please write the path to pw.x and lammps executable at
 `path_to_codes`. No need to change the paths if you're running the tutorial on GoldVM.
 
@@ -44,10 +44,11 @@ Our aim is to perform 3 active-learning iterations in 3 h 30 min. No attempt to 
 a fully converged potential is made. The tutorial should provide a consistent improvement 
 of the DNN potential with the number of iterations.
 
-For the sake of time, we already provide you 3 trained potentials at `03-train/iter.000/?/graph?.pb`
-("?" correspond to integers 1,2 or 3). These potentials were trained from training data 
-consisting of randomly perturbed C2H6 molecules (see `03-train/iter.000/raw_files/README.md`
-for more details).
+For the sake of time, we already provide you an initial set of 3 potentials at 
+`03-train/iter.000/?/graph?.pb` ("?" correspond to integers 1,2 or 3). The 
+training data used to build these potentials have no atomic configurations 
+close to the transition state. See `03-train/iter.000/raw_files/README.md` for 
+more details of the atomic configurations used to train these potentials.
 
 You can easily perform one iteration cycle running `./run_one_dp_iteration.sh &> log &` in the current 
 folder. This script will sweap over the 3 steps of active learning training. Below, we give 
@@ -76,8 +77,8 @@ cd ../../
 
 `model_devi.out` contains the deviation of energy and forces predicted from 3 different 
 DNN potentials. As in the first-day tutorial, these potentials are trained with the
-same training data. They differ only by the different random initialization of the 
-DNN parameters. We here use the deviation as a fast error estimatior of energy and
+same training data. They differ only by the random initialization of the 
+DNN parameters. We here use the model deviation as a fast error estimatior of energy and
 forces. As the iterations go, you should compare how the model deviation change as 
 a function of the number of completed iterations.
 
@@ -91,7 +92,7 @@ cd ../../
 
 At the end of the exploration, we will use the model deviation to select new atomic
 configurations to retrain. Only configurations with high maximum deviation in atomic 
-forces will be selected to retrain.  
+forces will be selected for labeling.  
  
 If you're interested, you can also compute the free energy surface for this system at 
 the end of each exploration step. Please read `01-explore/README` for more details.
@@ -112,14 +113,13 @@ training data collected from labeling to train an improved DNN potential.
 
 Our DNN potential is slightly different from the one used in the first-day. We use 
 the local-frame descriptors, instead of the smooth descriptors, for computational 
-efficiency. We recommend the use of the smooth descriptors for condensed 
-phase systems.
+efficiency.
 
 During training, you should look at `lcurve.out`. This file contains the fitting 
 error of the DNN as a function of the number of training steps. Use gnuplot to 
 plot the training and testing error forces for one the potentials in folders 
-1, 2 or 3 in `03-train/iter.00?`. For the first iteration, you could plot it
-with:
+1, 2 or 3 in `03-train/iter.00?`. For example, you could plot the learning curve 
+of the first iteration with:
 
 ```
 cd 03-train/iter.001/1
