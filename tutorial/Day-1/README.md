@@ -210,7 +210,12 @@ You will see
   40000    8.31e-03  1.21e-02    5.53e-05  1.49e-04    8.11e-03  1.18e-02    5.0e-08
 ```
 The total number of batches here corresponds to our settings of `stop_batch` in `param.json`. 
-The meaning of each column is indicated at first line. Column 2-7 stands total loss, loss of energy and loss of force for testing and training set, respectively. The last column is the learning rate. Here energies are given in eV and forces in eV/A. You can also use `gnuplot` to check how these losses converge. The one we care most is again column 6, the test loss of forces.
+The meaning of each column is indicated at first line. Column 2-7 stands total loss, loss of energy and loss of force for testing and training set, respectively. The last column is the learning rate. Here energies are given in eV and forces in eV/A. You can also use `gnuplot` to check how these losses converge. The one we care most is again column 6, the test loss of forces. (Enter `q` to quit gnuplot after you finished viewing it.)
+```
+gnuplot
+set logscale xy
+p 'lcurve.out' u 1:6 w l
+```
 
 Also, please note that this is only a tutorial example and the CH4 molecule is extremely simple, so that we can reach \~10 meV/A accuracy on forces within 40000 batches. In general usage, one may need to train millions of steps for a more complex system to reach similar accuracy (or even unreachable). A common strategy for longer training is to make the learning rate decay slower too, so that the final learning rate still falls into the range of 1e-7\~1e-8. 
 
