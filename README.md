@@ -12,3 +12,7 @@ You can check corresponding folders for more detailed instructions.
 Before starting, please clone this repository using:
 
 `git clone https://github.com/CSIprinceton/workshop-july-2020.git`
+
+## Aknowlegements
+
+We would like to thank Irene Kopaliani for kindly setting up the virtual machines for our hands-on workshop. We would also like to thank the CSI postdocs Amartya Bose, Pablo Piaggi, Thomas Gartner III and Zachary Goldsmith for their testing and improving both tutorials.
