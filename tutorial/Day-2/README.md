@@ -56,7 +56,7 @@ close to the transition state. See `03-train/iter.000/raw_files/README.md` for
 more details of the atomic configurations used to train these potentials.
 
 You can easily perform one iteration cycle running `./run_one_dp_iteration.sh &> log &` in the current 
-folder. This script will sweap over the 3 steps of active learning training. Below, we give 
+folder. This script will sweep over the 3 steps of active learning training. Below, we give 
 instruction on what quantities we should look during the training. Take a look at the log file to
 see some recommendations on what you should plot during each iteration.
 
@@ -129,7 +129,7 @@ of the first iteration with:
 
 ```
 cd 03-train/iter.001/1
-gnuplot ../codes/plot_lcurve.gnu
+gnuplot ../../codes/plot_lcurve.gnu
 cd ../../../
 ```
 
