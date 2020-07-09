@@ -5,18 +5,23 @@ Instruction for day 1 of the tutorial
 ##### Tutors: Yixiao Chen (Princeton PACM), Marcos Calegari Andrade (Princeton CHEM), Linfeng Zhang (Princeton PACM)
 
 # Aim and plan
-The aim of this 2-hour hands-on session is to introduce to you how to use DP-GEN, at the basic level.
+The aim of this 2-hour hands-on session is to show you how to use DP-GEN at the basic level.
 
 We will use the example of a single methane molecule and go through the whole DP-GEN process that 1) uses DeePMD-kit for training; 2) uses LAMMPS to explore the configuration space; and 3) uses QE to do ab initio calculations and prepare the training data. The output will be a uniformly accurate Deep Potential model for the methane molecule.
 
 # Learning outcomes
 Once this tutorial is completed, students will be able to:
 
-+ get familar with the basic input and output files, the code structure, and the features of DeePMD-kit, LAMMPS, QE, and DP-GEN
++ get familar with the basic input and output files, the code structure, and the features of DeePMD-kit, LAMMPS, Quantum Espresso, and DP-GEN
 + write a simple DP-GEN input file and use it to generate models for other systems
 
 # Quick start
-For those who are using the virtual machine, there is a very fast way to start running DP-GEN. I'm assuming you have already cloned this repo or downloaded the [`dpgen-handson-restart.tgz`](./dpgen-handson-restart.tgz) file, also you are in the folder of this tarball. To run the DP-GEN example, simply do the following:
+For those who are using the virtual machine, there is a very fast way to start running DP-GEN. I'm assuming you have already cloned this repo or downloaded the [`dpgen-handson-restart.tgz`](./dpgen-handson-restart.tgz) file, also you are in the folder of this tarball. If not, use the following command to download it.
+```bash
+wget https://github.com/CSIprinceton/workshop-july-2020/raw/master/tutorial/Day-1/dpgen-handson-restart.tgz
+```
+
+To run the DP-GEN example, simply do the following:
 
 1. unzip the file and go into the folder
    ```bash
@@ -88,7 +93,7 @@ We will explain step-by-step the input and output files and results of the `dpge
 
 + 00.train: `dpgen` will train several (default 4) models based on exisiting training data. The only difference between these models is the random seed for the initialization of network parameters. **DeePMD-kit will be used for this step.**
 
-+ 01.model_devi : model_devi for model deviation. `dpgen` will use models obtained from 00.train and run MD to explore the configuration space. For different structures, larger deviation indicates worse accuracy of the models. Using this criterion, a few structures will be selected and put into next stage `02.fp` for accurate calculations based on first-principle methods. **LAMMPS will be used for this step.**
++ 01.model_devi : model_devi for model deviation. `dpgen` will use models obtained from 00.train and run MD to explore the configuration space. For different structures, larger deviation (especially of forces) between the models created in 00.train indicates worse accuracy of the models. Using this criterion, a few structures will be selected and put into next stage `02.fp` for accurate calculations based on first-principle methods. **LAMMPS will be used for this step.**
 
 + 02.fp : Selected structures will be calculated by first-principle methods. `dpgen` will obtain some new data and put them together with initial data and data generated in previous iterations. After that a new training will be set up and `dpgen` will enter the next iteration. **QE will be used for this step.**
 
@@ -123,6 +128,7 @@ You can check the one we are using by
 ```bash
 cat param.json
 ```
+In particular, the parameters we used in training the model (`default_training_param`) is relatively robust (expect for the learning rate part and stop batch, which should be much longer) and can be used as a starting point when you want to train your own model on your own systems. One can of course tune them to get better results. Among them, the learning rate part are the ones that you may feel like to tweak first.
 
 ### Writing `machine.json`
 
@@ -190,7 +196,7 @@ Enter one folder, you will find:
 
 + `lcurve.out` records the training accuracy of energies and forces.
 
-Let's check one of them
+Let's check one of them to see the training results.
 ```bash
 cd 001
 head -n 2 lcurve.out  && tail -n 2  lcurve.out
@@ -203,13 +209,15 @@ You will see
   39000    8.36e-03  1.21e-02    5.83e-05  9.43e-05    8.10e-03  1.17e-02    6.4e-08
   40000    8.31e-03  1.21e-02    5.53e-05  1.49e-04    8.11e-03  1.18e-02    5.0e-08
 ```
+The total number of batches here corresponds to our settings of `stop_batch` in `param.json`. 
+The meaning of each column is indicated at first line. Column 2-7 stands total loss, loss of energy and loss of force for testing and training set, respectively. The last column is the learning rate. Here energies are given in eV and forces in eV/A. You can also use `gnuplot` to check how these losses converge. The one we care most is again column 6, the test loss of forces.
 
-The total number of batches here corresponds to our settings of `stop_batch_size` in `param.json`. 
+Also, please note that this is only a tutorial example and the CH4 molecule is extremely simple, so that we can reach \~10 meV/A accuracy on forces within 40000 batches. In general usage, one may need to train millions of steps for a more complex system to reach similar accuracy (or even unreachable). A common strategy for longer training is to make the learning rate decay slower too, so that the final learning rate still falls into the range of 1e-7\~1e-8. 
 
 Let's step forward.
 
 #### 01.model_devi
-From now on we are dealing with the results generate on your own machine. Everyone may see different results.
+From now on we are dealing with the results generated on your own machine. Everyone may see different results.
 
 Go back and enter 
 ```bash
@@ -218,7 +226,12 @@ cd ../../../iter.000000/01.model_devi
 
 You will see ten `task.*` folders ranging from `task.000.000000` to  `task.000.000009`.
 
-You may randomly select one of them, like `task.000.000006` and enter it. After`ls`, you will see
+You may randomly select one of them, like 
+```bash
+cd task.000.000006
+ls
+``` 
+you will see
 ```
 conf.lmp    input.lammps    model_devi.log	model_devi.out
 ```
@@ -236,26 +249,26 @@ By `head model_devi.out`, you will see:
           40       9.525256e-01       2.271607e-01       3.812842e-01       5.866476e-03       4.941065e-03       5.518061e-03
 ```
 
-`max_devi_f` is the error indicator that we use.
+`max_devi_f` is the error indicator that we use. This is the maxinum of the deviation of forces among all atoms. Here we focus on the deviation of atomic forces, as they directly relate to the dynamics. For configurations that can be well predicted by the potential model, this deviation value should be of same order as force loss of testing set during training (column 6 in `lcurve.out`). The model deviation also serves as a lower bound estimator of the accuracy of our prediction. The idea of DP-GEN is to select those points with large deviation and add them back into the new training set.
 
 #### 02.fp
 
 Now let's go back and enter to `fp` folder. 
 ```bash
-cd ../../iter.000000/02.fp
+cd ../../../iter.000000/02.fp
 ls
 ```
 You will see:
 
 ```
-candidate.shuffled.000.out   rest.shuffled.000.out    
+candidate.shuffled.000.out   rest_accurate.shuffled.000.out   rest_failed.shuffled.000.out
 data.000    task.000.0000??
 ```
 
 + `candidate.shuffle.000.out`: records which structures will be seleted from last step `01.model_devi`. There are always far more candidates than the maximum `fp_task_max` you expect to calculate at one time. In this condition, `dpgen` will randomly choose up to `fp_task_max` strucures and form the folder `task.*.0000*`.
-+ `rest.shuffle.000.out`: record the other structures where our model's is either too accurate (`max_devi_f` is less than `model_devi_f_trust_lo`, no need to calculate any more), or too inacurate (lager than `model_devi_f_trust_lo`, there may be some error).
-
-+ `data.000` After Ab-initio calculations, `dpgen` will collect these data and convert them into the format `deepmd-kit` needs. In the next iteration'.
++ `rest_accurate.shuffle.000.out`: record the other structures where our model's is accurate enough (`max_devi_f` is less than `model_devi_f_trust_lo`) so there is no need to calculate them any more.
++ `rest_failed.shuffle.000.out`: similar to above, but these structures are too inacurate (larger than `model_devi_f_trust_hi`).This indicates there might be some error in the exploration procedure that the structure is too far away from expected ones.
++ `data.000`: After Ab-initio calculations, `dpgen` will collect these data and convert them into the format `deepmd-kit` needs. In the next iteration'.
 
 ## Results
 Let's return to the home folder of dpgen and check the results.
@@ -287,8 +300,10 @@ you may find
      0 iter.000001/02.fp/rest_failed.shuffled.001.out
   3010 total
 ```
-*It's ok if you find these files does not exist. That means `dpgen` is still doing its job. Just take a rest and wait for a short time. It should take no longer than one hour for each iteration.*
+*It's ok if you find these files do not exist. That means `dpgen` is still doing its job. Just take a rest and wait for a short time. It should take no longer than one hour for each iteration.*
 
 It shows that there remain only 29 candidates. Notice that the number of MD steps we set in `iter.000001` is 3 times longer than in `iter.000000`.
 
 The last iteration `iter.000002` will only contain `00.train` and will return 4 DP models of good qualities for CH4 at 50K.
+
+Now, we have successfully generate a "univeral" accurate potential energy model for CH4 at 50K. To have a model that works for larger temperature (and pressure ) range, one can keep adding iterations in `params.json` with different temperature and pressure conditions. A truly univesal accurate model can be obtained after sufficiently many iterations.
