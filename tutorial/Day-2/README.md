@@ -3,6 +3,11 @@ Instruction for day 2 of the tutorial
 #### July 14 @ Princeton CSI center
 ##### Tutors: Marcos Calegari Andrade (Princeton CHEM), Yixiao Chen (Princeton PACM), Linfeng Zhang (Princeton PACM)
 
+# Aims
+
+1. Train a deep neural network potential that can properly describe rare events in molecular dynamics (MD) simulations;
+2. Use enhanced sampling techniques during the exploration steps of active learning.
+
 # Pre-requisites
 
 In order to run this tutorial, please make sure you have the following codes compiled:
@@ -11,9 +16,7 @@ In order to run this tutorial, please make sure you have the following codes com
 2. Lammps interfaced with DeepMD-kit and Plumed;
 3. PWscf code of Quantum-ESPRESSO.
 
-If you are running this tutorial on the GoldVM machine, these codes are already properly
-compiled. Before running the tutorial, please write the path to pw.x and lammps executable at
-`path_to_codes`. No need to change the paths if you're running the tutorial on GoldVM.
+Please write the path to pw.x and lammps executable at `path_to_codes`. No need to compile these codes or to change the paths if you're running the tutorial on GoldVM.
 
 # Quick start
 
@@ -22,6 +25,8 @@ You can run one DP training iteration with:
 `./run_one_dp_iteration.sh &> log &`
 
 We describe below what quatities you should look during the active learning cycle.
+
+While the code is running, take a look at `run_one_dp_iteration.sh` and the log file it produces. Try to understand each step the code is executing. Not every system will use exactly the same parameters used in this tutorial, so it is important that you understand what we do here before running enhanced sampling to train DP models for a different system.
 
 # Introduction and Motivation
 
@@ -52,7 +57,8 @@ more details of the atomic configurations used to train these potentials.
 
 You can easily perform one iteration cycle running `./run_one_dp_iteration.sh &> log &` in the current 
 folder. This script will sweap over the 3 steps of active learning training. Below, we give 
-instruction on what quantities we should look during the training.
+instruction on what quantities we should look during the training. Take a look at the log file to
+see some recommendations on what you should plot during each iteration.
 
 We provide all the outputs of 3 active learning iterations at `./benchmark`.
 
