@@ -16,6 +16,8 @@ ln -s $origin/03-train/iter.00$((iter-1))/?/graph* .
 #Run Lammps
 echo "Running Lammps. It will take 20 minutes (max.) to finish"
 echo "The simulation is running at: $origin/01-explore/iter.00${iter}"
+echo "Take a look at the model deviation and H-C-C-H dihedral in the path written above."
+echo "Check instruction in README.md on how to plot those quantities."
 $lammps < lammps.in &> lammps.out
 if grep -q 'Total wall time' lammps.out
   then
@@ -35,6 +37,8 @@ cd $origin
 cd 02-label/iter.00${iter}
 cp $origin/01-explore/iter.00${iter}/coord.raw .
 echo "We will start first-principles calculations right now. It should take 10-15 minutes."
+echo "You can check the PW input (01.in) and output files (01.out) in one of the many folders"
+echo "at: $origin/01-explore/iter.00${iter}/" 
 ../codes/run_first_principles.sh
 if [ -s analysis/force.raw ]; then
   echo "Finished first-principles. We will now add the newly labeled data to the old DP training data."
@@ -53,6 +57,7 @@ cd ..
 echo "Training 3 DP models. Training should take around 30 minutes"
 echo "The learning curves are prited to lcurve.out. You can find these files at:"
 echo "03-train/iter.00${iter}/1, 03-train/iter.00${iter}/2, 03-train/iter.00${iter}/3" 
+echo "Go back to the README.md file to see instructions on how to plot the learning curves."
 ./train_models.sh
 echo "Finished training the models. Now, we will freeze the graphs."
 ./freeze_models.sh
