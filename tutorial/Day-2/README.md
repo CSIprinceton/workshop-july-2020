@@ -129,7 +129,7 @@ of the first iteration with:
 
 ```
 cd 03-train/iter.001/1
-gnuplot ../codes/plot_lcurve.gnu
+gnuplot ../../codes/plot_lcurve.gnu
 cd ../../../
 ```
 
