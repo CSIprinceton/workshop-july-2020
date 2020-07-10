@@ -311,4 +311,4 @@ It shows that there remain only 29 candidates. Notice that the number of MD step
 
 The last iteration `iter.000002` will only contain `00.train` and will return 4 DP models of good qualities for CH4 at 50K.
 
-Now, we have successfully generate a "univeral" accurate potential energy model for CH4 at 50K. To have a model that works for larger temperature (and pressure ) range, one can keep adding iterations in `params.json` with different temperature and pressure conditions. A truly univesal accurate model can be obtained after sufficiently many iterations.
+Now, we have successfully generate a "uniformly" accurate potential energy model for CH4 at 50K. To have a model that works for larger temperature (and pressure ) range, one can keep adding iterations in `params.json` with different temperature and pressure conditions. A truly uniformly accurate model can be obtained after sufficiently many iterations.
