@@ -1,13 +1,17 @@
 cat << EOF > large_std.py
 import numpy as np
 
-f=np.genfromtxt('model_devi.out')
-f=f[::5]
-f=f.transpose()
+f=np.genfromtxt('model_devi.out').transpose()
 
+#f[4] is the max deviation in forces
 filter=np.logical_and(f[4]>0.08,f[4]<1.0)
+stepnumber=f[0][filter]
 
-for i in f[0][filter]:
+#Selecting a maximum of 150 snapshots
+sep=int(stepnumber.shape[0]/150.)+1
+stepnumber=stepnumber[::sep]
+
+for i in stepnumber:
   print(int(i))
 EOF
 
