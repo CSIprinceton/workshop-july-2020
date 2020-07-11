@@ -1,0 +1,67 @@
+{
+    "_comment": " model parameters",
+    "model": {
+	"type_map":	["C","H"],
+	"descriptor" :{
+	    "type":		"loc_frame",
+            "sel_r":		[2,6],
+            "sel_a":		[2,6],
+            "rcut":		5.00,
+            "axis_rule":	[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0],
+	    "seed":		42313343145,
+	    "_comment":		" that's all"
+	},
+	"fitting_net" : {
+	    "neuron":		[20, 20, 20],
+	    "resnet_dt":	true,
+	    "seed":		53452451,
+	    "_comment":		" that's all"
+	},
+	"_comment":	" that's all"
+    },
+
+    "learning_rate" :{
+	"type":		"exp",
+	"start_lr":	0.001,
+	"decay_steps":	20000,
+	"decay_rate":	0.95,
+	"_comment":	"that's all"
+    },
+
+    "loss" :{
+	"start_pref_e":	0.02,
+	"limit_pref_e":	1,
+	"start_pref_f":	1000,
+	"limit_pref_f":	1,
+	"start_pref_v":	0,
+	"limit_pref_v":	0,
+	"_comment":	" that's all"
+    },
+
+    "_comment": " traing controls",
+    "training" : {
+        "systems": [
+            "../raw_files"
+        ],
+	"set_prefix":	"set",    
+	"stop_batch":	400000,
+        "batch_size":   [10],
+	"seed":		3543423421,
+	"_comment": " display and restart",
+	"_comment": " frequencies counted in batch",
+	"disp_file":	"lcurve.out",
+	"disp_freq":	100,
+	"numb_test":	10,
+	"save_freq":	1000,
+	"save_ckpt":	"model.ckpt",
+	"load_ckpt":	"model.ckpt",
+	"disp_training":true,
+	"time_training":true,
+	"profiling":	false,
+	"profiling_file":"timeline.json",
+	"_comment":	"that's all"
+    },
+
+    "_comment":		"that's all"
+}
+
